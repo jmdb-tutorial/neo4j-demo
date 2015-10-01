@@ -1,15 +1,19 @@
 package jmdb.tutorial.neo4j;
 
+import jmdb.tutorial.neo4j.climbing.ClimbingIndexGraph;
 import org.neo4j.graphdb.GraphDatabaseService;
 import org.neo4j.graphdb.factory.GraphDatabaseFactory;
 
 import static java.lang.String.format;
 import static java.lang.System.out;
+import static java.lang.Thread.sleep;
 
 /**
  * Taken from http://neo4j.com/docs/stable/tutorials-java-embedded-setup.html
  */
-public class CreateClimbingIndex {
+public class CreateClimbingIndex_Embedded {
+
+    private GraphDatabaseService graphDb;
 
     /**
      * Make sure you own /var/neo4j-demo folder!
@@ -18,14 +22,27 @@ public class CreateClimbingIndex {
     public static void main(String[] args) {
         out.println("Going to setup and run an embedded neo4j database...");
 
-        new CreateClimbingIndex().run("/var/neo4j-demo/climbing-index");
+        new CreateClimbingIndex_Embedded().run("/var/neo4j-demo/climbing-index");
     }
 
     private void run(String dbPath) {
+        graphDb = initEmbeddedDb(dbPath);
+
+
+        ClimbingIndexGraph climbingIndexGraph = new ClimbingIndexGraph();
+
+        if (!climbingIndexGraph.existsIn(graphDb)) {
+            climbingIndexGraph.initialiseIn(graphDb);
+        }
+
+    }
+
+    private static GraphDatabaseService initEmbeddedDb(String dbPath) {
         out.println(format("Creating or opening db at [%s]...", dbPath));
         GraphDatabaseService graphDb = new GraphDatabaseFactory().newEmbeddedDatabase(dbPath);
         registerShutdownHook(graphDb);
         out.println("Opened graphdb ok.");
+        return graphDb;
     }
 
 

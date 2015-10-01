@@ -1,4 +1,4 @@
-package jmdb.tutorial.neo4j.climbing;
+package jmdb.tutorial.neo4j.embedded;
 
 import org.neo4j.graphdb.*;
 

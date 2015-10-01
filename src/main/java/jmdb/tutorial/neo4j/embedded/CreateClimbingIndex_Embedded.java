@@ -1,6 +1,5 @@
-package jmdb.tutorial.neo4j;
+package jmdb.tutorial.neo4j.embedded;
 
-import jmdb.tutorial.neo4j.climbing.ClimbingIndexGraph;
 import org.neo4j.graphdb.GraphDatabaseService;
 import org.neo4j.graphdb.factory.GraphDatabaseFactory;
 
@@ -22,7 +21,7 @@ public class CreateClimbingIndex_Embedded {
     public static void main(String[] args) {
         out.println("Going to setup and run an embedded neo4j database...");
 
-        new CreateClimbingIndex_Embedded().run("/var/neo4j-demo/climbing-index");
+        new CreateClimbingIndex_Embedded().run("/var/neo4j-demo/embedded-index");
     }
 
     private void run(String dbPath) {

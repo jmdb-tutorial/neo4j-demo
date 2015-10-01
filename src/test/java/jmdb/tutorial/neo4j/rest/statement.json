@@ -1,0 +1,20 @@
+{
+  "statements": [
+    {
+      "statement": "CREATE     (pitch:META:Nodes {type: "
+      PITCH
+      ", name: "
+      PITCH
+      "}),     (route:META:Nodes {type: "
+      ROUTE
+      ", name: "
+      ROUTE
+      "}),     climbing = (pitch - [:FROM_NODE] -> (:META:Relationships {type: "
+      COMPOSED_OF
+      ", name: "
+      COMPOSED_OF
+      "})                       - [:TO_NODE] -> route)"
+    }
+  ]
+}
+

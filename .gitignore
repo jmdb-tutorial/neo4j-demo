@@ -1,0 +1,6 @@
+*.iws
+*.ipr
+*.iml
+out
+target
+lib

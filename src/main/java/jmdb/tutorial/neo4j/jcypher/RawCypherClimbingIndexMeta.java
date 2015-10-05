@@ -39,6 +39,7 @@ public class RawCypherClimbingIndexMeta {
 
     }
 
+
     public static String cypher() {
         return new RawCypherClimbingIndexMeta().cypherQuery;
     }

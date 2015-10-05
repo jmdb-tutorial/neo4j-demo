@@ -2,10 +2,12 @@ package jmdb.tutorial.neo4j.jcypher;
 
 import iot.jcypher.query.JcQuery;
 import iot.jcypher.query.api.IClause;
-import iot.jcypher.query.factories.clause.CREATE;
 import iot.jcypher.query.values.JcNode;
 import iot.jcypher.query.values.JcPath;
 import iot.jcypher.query.writer.Format;
+
+import static iot.jcypher.query.factories.clause.CREATE.node;
+import static iot.jcypher.query.factories.clause.CREATE.path;
 
 public class RawCypherClimbingIndexMeta {
 
@@ -18,20 +20,19 @@ public class RawCypherClimbingIndexMeta {
 
         JcNode pitch = new JcNode("pitch");
         JcNode route = new JcNode("route");
-        JcNode relOn = new JcNode("on");
+        JcNode rel = new JcNode("");
 
         JcPath routes = new JcPath("routes");
 
-        query.setClauses(new IClause[] {
-                CREATE.node(pitch).label("META").label("Nodes").property("type").value("PITCH").property("name").value("PITCH"),
-                CREATE.node(route).label("META").label("Nodes").property("type").value("ROUTE").property("name").value("ROUTE"),
+        query.setClauses(new IClause[]{
+                node(pitch).label("META").label("Nodes").property("type").value("PITCH").property("name").value("PITCH"),
+                node(route).label("META").label("Nodes").property("type").value("ROUTE").property("name").value("ROUTE"),
 
-                CREATE.path(routes).node(pitch).relation().type("FROM_NODE")
-                                    .out().node(relOn).label("META").label("META").property("type").value("ON").property("name").value("ON")
-                                    .relation().type("TO_NODE").out().node(route)
+                path(routes).node(pitch).relation().type("FROM_NODE")
+                        .out().node(rel).label("META").label("Relationships").property("type").value("ON").property("name").value("ON")
+                        .relation().type("TO_NODE").out().node(route)
 
         });
-
 
 
         this.cypherQuery = iot.jcypher.util.Util.toCypher(query, Format.NONE);

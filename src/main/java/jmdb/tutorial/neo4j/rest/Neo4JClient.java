@@ -50,12 +50,20 @@ public class Neo4JClient {
 
     }
 
-    public String runCypher(String filename) {
-        return executeCypherStatement(httpClient, String.format("%s.%s", filename, "cypher"));
+    public String runCypherFromFile(String filename) {
+        return executeCypherStatementFromFile(httpClient, String.format("%s.%s", filename, "cypher"));
     }
 
-    public static String executeCypherStatement(Client client, String statementFileName) {
+    public String runCypherStatement(String statement) {
+        return executeCypherStatement(httpClient, statement);
+    }
+
+    public static String executeCypherStatementFromFile(Client client, String statementFileName) {
         String statement = loadStatement(statementFileName).replaceAll("\\n", " ").replaceAll("\"", "\\\\\"");
+        return executeCypherStatement(client, statement);
+    }
+
+    public static String executeCypherStatement(Client client, String statement) {
         final String txUri = SERVER_ROOT_URI + "db/data/transaction/commit";
         WebResource resource = client.resource(txUri);
 

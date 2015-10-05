@@ -12,9 +12,9 @@ public class CreateClimbingIndex_REST {
 
         neo4j.checkConnection();
 
-        neo4j.runCypher("delete_all_nodes");
-        neo4j.runCypher("create_meta_model");
-        neo4j.runCypher("create_sample_data");
+        neo4j.runCypherFromFile("delete_all_nodes");
+        neo4j.runCypherFromFile("create_meta_model");
+        neo4j.runCypherFromFile("create_sample_data");
     }
 
 }

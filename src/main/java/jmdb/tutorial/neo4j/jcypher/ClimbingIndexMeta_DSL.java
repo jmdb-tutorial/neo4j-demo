@@ -7,12 +7,12 @@ import jmdb.tutorial.neo4j.jcypher.meta.NodeTypeMeta;
 import jmdb.tutorial.neo4j.jcypher.meta.NodeTypeMetaContainer;
 import jmdb.tutorial.neo4j.jcypher.meta.RelTypeMeta;
 
-import static jmdb.tutorial.neo4j.jcypher.ClimbingIndexDSL.AttributeNames.*;
-import static jmdb.tutorial.neo4j.jcypher.ClimbingIndexDSL.NodeTypes.*;
-import static jmdb.tutorial.neo4j.jcypher.ClimbingIndexDSL.RelTypes.*;
+import static jmdb.tutorial.neo4j.jcypher.ClimbingIndexMeta_DSL.AttributeNames.*;
+import static jmdb.tutorial.neo4j.jcypher.ClimbingIndexMeta_DSL.NodeTypes.*;
+import static jmdb.tutorial.neo4j.jcypher.ClimbingIndexMeta_DSL.RelTypes.*;
 import static jmdb.tutorial.neo4j.jcypher.meta.MetaModelBuilder.metaModel;
 
-public class ClimbingIndexDSL {
+public class ClimbingIndexMeta_DSL {
 
     public static String asCypher(Format format) {
         return iot.jcypher.util.Util.toCypher(asJcQuery(), format);
@@ -21,8 +21,9 @@ public class ClimbingIndexDSL {
     public static JcQuery asJcQuery() {
         return metaModel(NodeTypes.class)
                 .relate(PITCH, ON, ROUTE)
-                .relate(PITCH, GRADED, GRADE)
                 .relate(CLIMB, COMPLETED, PITCH)
+                .relate(PITCH, GRADED, GRADE)
+                .relate(ROUTE, GRADED, GRADE)
                 .asJcQuery();
     }
 
@@ -35,9 +36,7 @@ public class ClimbingIndexDSL {
 
         private final NodeTypeMetaContainer meta = new NodeTypeMetaContainer();
 
-        NodeTypes(NodeAttributeMeta... attribute) {
-            meta.registerAttributes(meta);
-        }
+        NodeTypes(NodeAttributeMeta... attributes) {meta.registerAttributes(this, attributes);}
 
     }
 

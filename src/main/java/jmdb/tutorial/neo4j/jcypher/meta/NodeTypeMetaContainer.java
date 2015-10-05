@@ -1,23 +1,20 @@
 package jmdb.tutorial.neo4j.jcypher.meta;
 
+import jmdb.tutorial.neo4j.jcypher.ClimbingIndexMeta_DSL;
+
+import java.util.HashMap;
+import java.util.Map;
+
 public class NodeTypeMetaContainer {
 
-    private final NodeAttributeMeta[] attributes;
+    private final Map<String, String[]> attributeMap = new HashMap<>();
 
-
-    public NodeTypeMetaContainer(NodeAttributeMeta... attributes) {
-        this.attributes = attributes;
-    }
 
     public NodeTypeMetaContainer() {
-        this(new NodeAttributeMeta[]{});
     }
 
-    public static NodeTypeMetaContainer nodeTypeMeta(NodeAttributeMeta... attributes) {
-        return new NodeTypeMetaContainer(attributes);
-    }
 
-    public void registerAttributes(NodeTypeMetaContainer meta) {
+    public void registerAttributes(ClimbingIndexMeta_DSL.NodeTypes nodeTypes, NodeAttributeMeta[] meta) {
 
     }
 }

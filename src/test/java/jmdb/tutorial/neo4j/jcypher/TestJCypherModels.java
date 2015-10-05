@@ -14,7 +14,7 @@ public class TestJCypherModels {
 
     @Test
     public void create_meta_model_with_dsl() {
-        out.println(ClimbingIndexDSL.asCypher(Format.PRETTY_3));
+        out.println(ClimbingIndexMeta_DSL.asCypher(Format.PRETTY_3));
     }
 
 }

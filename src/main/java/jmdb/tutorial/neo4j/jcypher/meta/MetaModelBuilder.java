@@ -4,13 +4,17 @@ import iot.jcypher.query.JcQuery;
 import iot.jcypher.query.api.IClause;
 import iot.jcypher.query.factories.clause.CREATE;
 import iot.jcypher.query.values.JcNode;
+import iot.jcypher.query.values.JcPath;
 
 import java.lang.reflect.Field;
 import java.util.*;
 
+import static iot.jcypher.query.factories.clause.CREATE.path;
+
 public class MetaModelBuilder {
     private static final IClause[] EMPTY_CLAUSES = new IClause[0];
     private static Map<String , JcNode> nodeIndex = new HashMap<>();
+
     private List<IClause> clauses = new ArrayList<>();
 
     public static MetaModelBuilder metaModel(Class<? extends NodeTypeMeta> nodeTypeEnumClazz) {
@@ -21,8 +25,31 @@ public class MetaModelBuilder {
         clauses.addAll(parseNodeTypes(nodeTypeEnumClazz));
     }
 
-    public MetaModelBuilder relate(NodeTypeMeta fromNode, RelTypeMeta relType, NodeTypeMeta toNode) {
+    public MetaModelBuilder relate(NodeTypeMeta fromNodeMeta, RelTypeMeta relType, NodeTypeMeta toNodeMeta) {
+        JcNode fromNode = getNode(fromNodeMeta);
+        JcNode toNode = getNode(toNodeMeta);
+
+        JcNode relNode = new JcNode("");
+        JcPath relPath = new JcPath(fromNodeMeta.name().toLowerCase() + "_" + toNodeMeta.name().toLowerCase());
+
+
+        IClause clause = path(relPath)
+                    .node(fromNode)
+                    .relation().type("FROM_NODE").out()
+                        .node(relNode)
+                            .label("META").label("Relationships")
+                            .property("type").value(relType.name())
+                            .property("name").value(relType.name())
+                    .relation().type("TO_NODE").out()
+                        .node(toNode);
+
+        clauses.add(clause);
+
         return this;
+    }
+
+    private JcNode getNode(NodeTypeMeta fromNodeMeta) {
+        return nodeIndex.get(fromNodeMeta.name());
     }
 
     public JcQuery asJcQuery() {

@@ -11,12 +11,12 @@ import static iot.jcypher.query.factories.clause.CREATE.path;
 
 public class RawCypherClimbingIndexMeta {
 
-    private final String cypherQuery;
+    private final JcQuery query;
 
     public RawCypherClimbingIndexMeta() {
 
 
-        JcQuery query = new JcQuery();
+        query = new JcQuery();
 
         JcNode pitch = new JcNode("pitch");
         JcNode route = new JcNode("route");
@@ -35,12 +35,13 @@ public class RawCypherClimbingIndexMeta {
         });
 
 
-        this.cypherQuery = iot.jcypher.util.Util.toCypher(query, Format.NONE);
-
     }
 
+    public static final String cypher() {
+        return cypher(Format.NONE);
+    }
 
-    public static String cypher() {
-        return new RawCypherClimbingIndexMeta().cypherQuery;
+    public static String cypher(Format format) {
+        return iot.jcypher.util.Util.toCypher(new RawCypherClimbingIndexMeta().query, format);
     }
 }

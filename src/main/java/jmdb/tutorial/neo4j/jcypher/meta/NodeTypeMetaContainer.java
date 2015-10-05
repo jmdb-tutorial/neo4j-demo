@@ -1,4 +1,4 @@
-package jmdb.tutorial.neo4j.jcypher;
+package jmdb.tutorial.neo4j.jcypher.meta;
 
 public class NodeTypeMetaContainer {
 

@@ -1,13 +1,22 @@
 package jmdb.tutorial.neo4j.jcypher;
 
 import iot.jcypher.query.JcQuery;
+import iot.jcypher.query.writer.Format;
+import jmdb.tutorial.neo4j.jcypher.meta.NodeAttributeMeta;
+import jmdb.tutorial.neo4j.jcypher.meta.NodeTypeMeta;
+import jmdb.tutorial.neo4j.jcypher.meta.NodeTypeMetaContainer;
+import jmdb.tutorial.neo4j.jcypher.meta.RelTypeMeta;
 
 import static jmdb.tutorial.neo4j.jcypher.ClimbingIndexDSL.AttributeNames.*;
 import static jmdb.tutorial.neo4j.jcypher.ClimbingIndexDSL.NodeTypes.*;
 import static jmdb.tutorial.neo4j.jcypher.ClimbingIndexDSL.RelTypes.*;
-import static jmdb.tutorial.neo4j.jcypher.MetaModelBuilder.metaModel;
+import static jmdb.tutorial.neo4j.jcypher.meta.MetaModelBuilder.metaModel;
 
 public class ClimbingIndexDSL {
+
+    public static String asCypher(Format format) {
+        return iot.jcypher.util.Util.toCypher(asJcQuery(), format);
+    }
 
     public static JcQuery asJcQuery() {
         return metaModel(NodeTypes.class)

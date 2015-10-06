@@ -29,3 +29,9 @@ Need to install neo4j :
  
  <img src="doc/climbing-index-first-step.png" width=800 />
  
+ 
+ ## TODO
+ 
+ - Add climbing grades and some climbs with climbers to the data model
+ - Add climbs with different grading systems
+ - Import a load of data

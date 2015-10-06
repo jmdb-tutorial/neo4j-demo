@@ -17,4 +17,9 @@ public class TestJCypherModels {
         out.println(ClimbingIndexMeta_DSL.asCypher(Format.PRETTY_3));
     }
 
+    @Test
+    public void create_route_index() {
+        out.println(ClimbingIndexData_DSL.asCypher(Format.PRETTY_3));
+    }
+
 }
